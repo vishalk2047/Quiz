@@ -3,7 +3,7 @@ import { defineConfig } from 'vite'
 
 export default defineConfig({
   plugins: [react()],
-  base: '/dsa-quiz/',
+  base: '/Quiz/',
   esbuild: {
     loader: 'jsx',
     include: /src\/.*\.js$/,
