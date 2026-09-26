@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Dashboard from './components/Dashboard.jsx';
 import Quiz from './components/Quiz.jsx';
-import { generateQuizQuestions } from './api/gemini.js';
+import { generateQuizQuestions } from '../api/gemini.js';
 import './components/Quiz.css';
 import './App.css';
 
