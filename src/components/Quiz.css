@@ -31,7 +31,7 @@ html, body {
     min-height: 100vh;
     justify-content: flex-start;
     padding-top: 86px;
-    padding-bottom: 64px;
+    padding-bottom: 24px;
   }
 }
 
@@ -256,7 +256,8 @@ html, body {
   font-weight: 500;
   color: #FFFFFF !important;
   opacity: 0.85;
-  margin-top: 8px;
+  margin-top: auto;
+  padding-top: 24px;
   z-index: 2;
 }
 
