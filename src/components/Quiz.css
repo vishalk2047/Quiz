@@ -3,38 +3,39 @@
 * {
   box-sizing: border-box;
 }
-
-html, body {
-  height: 100%;
-  overflow: hidden;
+html, body,
+#root {
+  width: 100%;
+  min-height: 100%;
+  margin: 0;
+  background: linear-gradient(135deg, #6C5CE7 0%, #FF6B9D 55%, #FFA62B 100%);
 }
 
 .quiz-page {
   position: relative;
+  width: 100%;
   min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 24px;
-  overflow: hidden;
   background: linear-gradient(135deg, #6C5CE7 0%, #FF6B9D 55%, #FFA62B 100%);
   font-family: 'Inter', sans-serif;
 }
 
 @media (max-width: 480px) {
   .quiz-page {
-    height: 100vh;
-    min-height: 0;
-    align-items: flex-start;
+    justify-content: flex-start;
     padding-top: 86px;
-    padding-bottom: 48px;
-    overflow: hidden;
+    padding-bottom: 64px;
   }
 }
 
 @media (min-width: 481px) {
   .quiz-page {
-    align-items: flex-start;
+    justify-content: flex-start;
     padding-top: 100px;
   }
 }
@@ -72,14 +73,7 @@ html, body {
   border-radius: 28px;
   padding: 32px 28px;
   box-shadow: 0 24px 48px rgba(36, 26, 61, 0.25);
-  max-height: calc(100vh - 220px);
-  overflow-y: auto;
-}
-
-@media (max-width: 480px) {
-  .quiz-card {
-    max-height: calc(100vh - 86px - 48px - 24px);
-  }
+  margin-bottom: 24px;
 }
 
 .progress-row {
@@ -224,8 +218,15 @@ html, body {
 }
 
 @keyframes pop {
-  from { transform: scale(0.6); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
+  from {
+    transform: scale(0.6);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 .score-percent {
@@ -253,24 +254,15 @@ html, body {
 
 /* Footer credit */
 .site-credit {
-  position: fixed;
-  bottom: 12px;
-  left: 0;
-  right: 0;
+  position: relative;
   text-align: center;
   font-family: 'Inter', sans-serif;
   font-size: 16px;
   font-weight: 500;
   color: #FFFFFF !important;
   opacity: 0.85;
+  margin-top: auto;
   z-index: 2;
-  pointer-events: none;
-}
-
-@media (max-width: 480px) {
-  .site-credit {
-    bottom: 12px;
-  }
 }
 
 .heart-icon {
@@ -342,6 +334,13 @@ html, body {
 }
 
 @keyframes pulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.2); }
+
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.2);
+  }
 }
