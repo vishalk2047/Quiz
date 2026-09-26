@@ -119,6 +119,14 @@ html, body {
   margin: 0 0 24px;
 }
 
+.question-para {
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  color: #7C7594 !important;
+  text-align: center;
+  margin-top: 4px;
+}
+
 .options-grid {
   display: flex;
   flex-direction: column;
