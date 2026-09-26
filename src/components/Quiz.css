@@ -80,6 +80,11 @@ html, body {
   max-height: calc(100dvh - 220px);
   overflow-y: auto;
   overflow-x: hidden;
+  scrollbar-width: none;
+}
+
+.quiz-card::-webkit-scrollbar {
+  display: none;
 }
 
 @media (max-width: 480px) {
@@ -117,14 +122,6 @@ html, body {
   line-height: 1.35;
   color: #241A3D !important;
   margin: 0 0 24px;
-}
-
-.question-para {
-  font-family: 'Inter', sans-serif;
-  font-size: 15px;
-  color: #7C7594 !important;
-  text-align: center;
-  margin-top: 4px;
 }
 
 .options-grid {
@@ -313,6 +310,15 @@ html, body {
 .generate-button {
   padding: 14px 32px;
   font-size: 15px;
+}
+
+.question-para {
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  color: #7C7594 !important;
+  line-height: 1.5;
+  text-align: center;
+  margin: 0;
 }
 
 /* Topic selector */
