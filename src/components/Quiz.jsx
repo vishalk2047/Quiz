@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import SiteCredit from './SiteCredit.jsx';
 import './Quiz.css';
 
 function Quiz({ questions, onRestart }) {
@@ -99,12 +100,6 @@ function ResultsCard({ score, total, onRestart }) {
       </h2>
       <button className="next-button" onClick={onRestart}>Try another topic</button>
     </div>
-  );
-}
-
-function SiteCredit() {
-  return (
-  <p className="site-credit"> Made with ❤️ by Vishal Khatri </p>
   );
 }
 
