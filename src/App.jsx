@@ -25,6 +25,7 @@ function App() {
 
   const handleRestart = () => {
     setQuestions(null);
+    setError(null);
   };
 
   if (loading) {

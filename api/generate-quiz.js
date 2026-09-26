@@ -27,6 +27,16 @@ async function callGemini(model, prompt, apiKey) {
   return data;
 }
 
+// Fisher-Yates shuffle — breaks any positional pattern in the correct answer
+function shuffleOptions(question) {
+  const options = [...question.options];
+  for (let i = options.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [options[i], options[j]] = [options[j], options[i]];
+  }
+  return { ...question, options };
+}
+
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
@@ -80,7 +90,8 @@ Return ONLY a valid JSON array. No markdown, no explanation, no code fences:
       const data = await callGemini(model, prompt, apiKey);
       const text = data.candidates[0].content.parts[0].text;
       const clean = text.replace(/```json|```/g, '').trim();
-      const questions = JSON.parse(clean);
+      const rawQuestions = JSON.parse(clean);
+      const questions = rawQuestions.map(shuffleOptions);
       return res.status(200).json({ questions });
     } catch (err) {
       console.warn(`Model ${model} failed:`, err.message);

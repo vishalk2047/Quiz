@@ -72,6 +72,14 @@ html, body {
   border-radius: 28px;
   padding: 32px 28px;
   box-shadow: 0 24px 48px rgba(36, 26, 61, 0.25);
+  max-height: calc(100vh - 220px);
+  overflow-y: auto;
+}
+
+@media (max-width: 480px) {
+  .quiz-card {
+    max-height: calc(100vh - 86px - 48px - 24px);
+  }
 }
 
 .progress-row {
@@ -261,7 +269,7 @@ html, body {
 
 @media (max-width: 480px) {
   .site-credit {
-    bottom: 15px;
+    bottom: 12px;
   }
 }
 
