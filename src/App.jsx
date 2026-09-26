@@ -37,6 +37,7 @@ function App() {
         <div className="quiz-card" style={{ textAlign: 'center' }}>
           <div className="loader-emoji">⚡</div>
           <h2 className="question-text">Generating your quiz...</h2>
+          <p >Brewing up your questions...</p>
         </div>
         <SiteCredit />
       </div>
