@@ -79,6 +79,7 @@ html, body {
   margin-bottom: 24px;
   max-height: calc(100dvh - 220px);
   overflow-y: auto;
+  overflow-x: hidden;
 }
 
 @media (max-width: 480px) {
