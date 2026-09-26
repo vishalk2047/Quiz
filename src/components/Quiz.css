@@ -137,7 +137,7 @@ html, body {
 
 .option-pill:hover:not(:disabled) {
   transform: translateY(-2px);
-  border-color: #6C5CE7;
+  border-color: #5ce796;
 }
 
 .option-pill:active:not(:disabled) {
