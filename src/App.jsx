@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Dashboard from './components/Dashboard.jsx';
 import Quiz from './components/Quiz.jsx';
+import SiteCredit from './components/SiteCredit.jsx';
 import { generateQuizQuestions } from './api/gemini.js';
 import './components/Quiz.css';
 import './App.css';
@@ -36,8 +37,8 @@ function App() {
         <div className="quiz-card" style={{ textAlign: 'center' }}>
           <div className="loader-emoji">⚡</div>
           <h2 className="question-text">Generating your quiz...</h2>
-          {/* <p className="score-tag">Asking Gemini to craft 5 questions for you</p> */}
         </div>
+        <SiteCredit />
       </div>
     );
   }
@@ -52,6 +53,7 @@ function App() {
           <h2 className="question-text">{error}</h2>
           <button className="next-button" onClick={handleRestart}>Try again</button>
         </div>
+        <SiteCredit />
       </div>
     );
   }

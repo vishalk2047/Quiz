@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import SiteCredit from './SiteCredit.jsx';
 import './Quiz.css';
 
 const DSA_TOPICS = [
@@ -50,9 +51,8 @@ function Dashboard({ onStart }) {
           Generate quiz
         </button>
       </div>
-      <p className="site-credit">
-        Made with ❤️ by Vishal Khatri
-        </p>
+
+      <SiteCredit />
     </div>
   );
 }
