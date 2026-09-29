@@ -165,6 +165,7 @@ export default async function handler(req, res) {
   if (!hasPreviousQuiz) {
 
     prompt = `Generate exactly ${count} multiple choice DSA quiz questions about "${topic}".
+    Difficulty: ${difficulty}
 
 Session ID: ${seed}
 Use the session ID as a variation signal to help generate fresh questions. Do not mention or output the session ID.
@@ -199,15 +200,15 @@ Return ONLY a valid JSON array. No markdown, no explanation, no code fences:
   // SAME TOPIC HAS BEEN GENERATED BEFORE
   // ==========================================
 
-  } else {
+} else {
 
-    const historyText = previousQuestions
-      .map((question, index) => {
-        return `${index + 1}. ${question}`;
-      })
-      .join('\n');
+  const historyText = previousQuestions
+    .map((question, index) => {
+      return `${index + 1}. ${question}`;
+    })
+    .join('\n');
 
-    prompt = `Generate exactly ${count} NEW multiple choice DSA quiz questions about "${topic}".
+  prompt = `Generate exactly ${count} NEW multiple choice DSA quiz questions about "${topic}".
 
 Session ID: ${seed}
 Use the session ID as a variation signal to help generate fresh questions. Do not mention or output the session ID.
@@ -240,122 +241,122 @@ Return ONLY a valid JSON array. No markdown, no explanation, no code fences:
     "answer": "exact matching option"
   }
 ]`;
-  }
+}
 
 
-  // ------------------------------------------
-  // Try Gemini models
-  // ------------------------------------------
+// ------------------------------------------
+// Try Gemini models
+// ------------------------------------------
 
-  for (const model of MODELS) {
+for (const model of MODELS) {
 
-    try {
+  try {
 
-      const data = await callGemini(
-        model,
-        prompt,
-        apiKey
+    const data = await callGemini(
+      model,
+      prompt,
+      apiKey
+    );
+
+    const text =
+      data.candidates?.[0]?.content?.parts?.[0]?.text;
+
+    if (!text) {
+      throw new Error('Gemini returned empty response');
+    }
+
+
+    // Remove accidental markdown code fences
+    const clean = text
+      .replace(/```json/gi, '')
+      .replace(/```/g, '')
+      .trim();
+
+
+    const rawQuestions = JSON.parse(clean);
+
+
+    // ------------------------------------------
+    // Validate Gemini response
+    // ------------------------------------------
+
+    if (!Array.isArray(rawQuestions)) {
+      throw new Error('Gemini response is not an array');
+    }
+
+    if (rawQuestions.length !== count) {
+      throw new Error(
+        `Expected ${count} questions but received ${rawQuestions.length}`
       );
-
-      const text =
-        data.candidates?.[0]?.content?.parts?.[0]?.text;
-
-      if (!text) {
-        throw new Error('Gemini returned empty response');
-      }
+    }
 
 
-      // Remove accidental markdown code fences
-      const clean = text
-        .replace(/```json/gi, '')
-        .replace(/```/g, '')
-        .trim();
+    for (const question of rawQuestions) {
 
-
-      const rawQuestions = JSON.parse(clean);
-
-
-      // ------------------------------------------
-      // Validate Gemini response
-      // ------------------------------------------
-
-      if (!Array.isArray(rawQuestions)) {
-        throw new Error('Gemini response is not an array');
-      }
-
-      if (rawQuestions.length !== count) {
+      if (
+        !question.question ||
+        !Array.isArray(question.options) ||
+        question.options.length !== 4 ||
+        !question.answer
+      ) {
         throw new Error(
-          `Expected ${count} questions but received ${rawQuestions.length}`
+          'Invalid question structure returned by Gemini'
         );
       }
 
-
-      for (const question of rawQuestions) {
-
-        if (
-          !question.question ||
-          !Array.isArray(question.options) ||
-          question.options.length !== 4 ||
-          !question.answer
-        ) {
-          throw new Error(
-            'Invalid question structure returned by Gemini'
-          );
-        }
-
-        if (!question.options.includes(question.answer)) {
-          throw new Error(
-            'Answer does not match any option'
-          );
-        }
+      if (!question.options.includes(question.answer)) {
+        throw new Error(
+          'Answer does not match any option'
+        );
       }
-
-
-      // ------------------------------------------
-      // Save questions for THIS topic
-      // ------------------------------------------
-
-      const newQuestions =
-        rawQuestions.map(q => q.question);
-
-      const updatedHistory = [
-        ...previousQuestions,
-        ...newQuestions,
-      ];
-
-      topicHistory.set(
-        normalizedTopic,
-        updatedHistory
-      );
-
-
-      // ------------------------------------------
-      // Shuffle options
-      // ------------------------------------------
-
-      const questions =
-        rawQuestions.map(shuffleOptions);
-
-
-      // ------------------------------------------
-      // Send response
-      // ------------------------------------------
-
-      return res.status(200).json({
-        questions,
-      });
-
-    } catch (err) {
-
-      console.warn(
-        `Model ${model} failed:`,
-        err.message
-      );
     }
+
+
+    // ------------------------------------------
+    // Save questions for THIS topic
+    // ------------------------------------------
+
+    const newQuestions =
+      rawQuestions.map(q => q.question);
+
+    const updatedHistory = [
+      ...previousQuestions,
+      ...newQuestions,
+    ];
+
+    topicHistory.set(
+      normalizedTopic,
+      updatedHistory
+    );
+
+
+    // ------------------------------------------
+    // Shuffle options
+    // ------------------------------------------
+
+    const questions =
+      rawQuestions.map(shuffleOptions);
+
+
+    // ------------------------------------------
+    // Send response
+    // ------------------------------------------
+
+    return res.status(200).json({
+      questions,
+    });
+
+  } catch (err) {
+
+    console.warn(
+      `Model ${model} failed:`,
+      err.message
+    );
   }
+}
 
 
-  return res.status(500).json({
-    error: 'All models failed. Please try again later.',
-  });
+return res.status(500).json({
+  error: 'All models failed. Please try again later.',
+});
 }
