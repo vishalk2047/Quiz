@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import SiteCredit from './SiteCredit.jsx';
+import WaveBackground from './WaveBackground.jsx';
 import './Quiz.css';
 
 function Quiz({ questions, onRestart }) {
@@ -28,8 +29,7 @@ function Quiz({ questions, onRestart }) {
 
   return (
     <div className="quiz-page">
-      <div className="quiz-blob blob-one" />
-      <div className="quiz-blob blob-two" />
+      <WaveBackground />
 
       {isFinished ? (
         <ResultsCard score={score} total={questions.length} onRestart={onRestart} />

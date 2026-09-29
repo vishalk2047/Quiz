@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import Login from './components/Login.jsx';
+import WaveBackground from './components/WaveBackground.jsx';
 import Dashboard from './components/Dashboard.jsx';
 import Quiz from './components/Quiz.jsx';
 import SiteCredit from './components/SiteCredit.jsx';
@@ -7,6 +9,7 @@ import './components/Quiz.css';
 import './App.css';
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [questions, setQuestions] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -29,11 +32,14 @@ function App() {
     setError(null);
   };
 
+  if (!isLoggedIn) {
+    return <Login onLogin={async () => setIsLoggedIn(true)} />;
+  }
+
   if (loading) {
     return (
       <div className="quiz-page">
-        <div className="quiz-blob blob-one" />
-        <div className="quiz-blob blob-two" />
+        <WaveBackground />
         <div className="quiz-card" style={{ textAlign: 'center' }}>
           <div className="loader-emoji">⚡</div>
           <h2 className="question-text">Generating your quiz...</h2>
@@ -47,8 +53,7 @@ function App() {
   if (error) {
     return (
       <div className="quiz-page">
-        <div className="quiz-blob blob-one" />
-        <div className="quiz-blob blob-two" />
+        <WaveBackground />
         <div className="quiz-card" style={{ textAlign: 'center' }}>
           <div className="loader-emoji">⚠️</div>
           <h2 className="question-text">{error}</h2>
