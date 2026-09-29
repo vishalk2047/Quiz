@@ -14,13 +14,20 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const handleStart = async (topic) => {
+  const handleStart = async (topic, difficulty, questionCount) => {
     setLoading(true);
     setError(null);
+
     try {
-      const qs = await generateQuizQuestions(topic);
+      const qs = await generateQuizQuestions(
+        topic,
+        questionCount,
+        difficulty
+      );
+
       setQuestions(qs);
     } catch (err) {
+      console.error('Quiz generation error:', err);
       setError('Failed to generate questions. Please try again.');
     } finally {
       setLoading(false);
