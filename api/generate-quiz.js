@@ -199,8 +199,7 @@ Return ONLY a valid JSON array. No markdown, no explanation, no code fences:
   // ==========================================
   // SAME TOPIC HAS BEEN GENERATED BEFORE
   // ==========================================
-
-} else {
+ else {
 
   const historyText = previousQuestions
     .map((question, index) => {
