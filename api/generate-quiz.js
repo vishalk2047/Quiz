@@ -82,6 +82,7 @@ export default async function handler(req, res) {
   const {
     topic,
     questionCount,
+    difficulty,
   } = req.body || {};
 
   if (!topic) {
