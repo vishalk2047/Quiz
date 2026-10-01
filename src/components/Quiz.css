@@ -101,10 +101,12 @@ html, body {
 
 /* Question */
 .question-text {
-  font-family: 'Rock Salt', cursive;
-  font-weight: 400;
-  font-size: 20px;
-  line-height: 1.5;
+  font-family: "Domine", serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+  font-size: 22px;
+  line-height: 1.4;
   color: #16323A !important;
   margin: 0 0 24px;
 }
