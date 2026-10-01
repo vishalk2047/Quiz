@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Inter:wght@400;500;600&family=Rock+Salt&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Inter:wght@400;500;600&display=swap');
 
 * {
   box-sizing: border-box;
@@ -101,12 +101,10 @@ html, body {
 
 /* Question */
 .question-text {
-  font-family: "Domine", serif;
-  font-optical-sizing: auto;
-  font-weight: 600;
-  font-style: normal;
-  font-size: 22px;
-  line-height: 1.4;
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 1.5;
   color: #16323A !important;
   margin: 0 0 24px;
 }
@@ -130,7 +128,7 @@ html, body {
   background: #F4FAFC;
   font-family: 'Inter', sans-serif;
   font-size: 15px;
-  font-weight: 500;
+  font-weight: 400;
   color: #16323A !important;
   cursor: pointer;
   transition: transform 0.15s ease, border-color 0.2s ease, background 0.2s ease;
@@ -230,7 +228,7 @@ html, body {
 }
 
 .score-percent {
-  font-family: 'Fredoka', sans-serif;
+  font-family: 'Montserrat', sans-serif;
   font-size: 34px;
   font-weight: 700;
   color: #FFFFFF;
@@ -245,9 +243,9 @@ html, body {
 }
 
 .results-title {
-  font-family: 'Fredoka', sans-serif;
+  font-family: 'Montserrat', sans-serif;
   font-size: 20px;
-  font-weight: 600;
+  font-weight: 700;
   color: #16323A !important;
   margin: 0 0 24px;
 }
